@@ -4,13 +4,6 @@ add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
-function my_scripts_method() {
-	wp_enqueue_script('custom-script',
-		'http://malsup.github.com/jquery.form.js',
-		array('jquery')
-	);
-}
-add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
 function s_widgets_init() {
 	register_sidebar( array(
