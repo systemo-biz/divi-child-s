@@ -25,3 +25,35 @@ function s_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 's_widgets_init' );
+
+
+/*
+Замена слага архива типа поста Проекты
+*/
+function divi_change_slug_project($args, $post_type){
+  if($post_type == 'project') {
+    $args['rewrite']['slug'] = 'projects';
+  }
+  return $args;
+}
+add_filter( 'register_post_type_args', 'divi_change_slug_project', 100, 2 );
+
+
+/*
+Прочистка заголовка архивов
+*/
+function divi_get_the_archive_title($title){
+  if(is_post_type_archive()) {
+    $title = post_type_archive_title( '', false );
+  }
+
+  if(is_tax()){
+    $tax = get_taxonomy( get_queried_object()->taxonomy );
+    $title = single_term_title( '', false );
+
+  }
+
+  return $title;
+}
+
+add_filter( 'get_the_archive_title', 'divi_get_the_archive_title' );
